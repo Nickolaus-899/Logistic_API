@@ -3,10 +3,16 @@ from src.distance import calculate_distance
 from random import randint
 
 
-ADEQUATE_COEFF = 1.0
+ADEQUATE_COEFF = 2.0
+
+MAX_W = 70
+MIN_W = 10
+
+MAX_V = 70
+MIN_V = 10
 
 async def get_price(transfer):
-    dist_res = await calculate_distance(transfer, transfer)
+    dist_res = await calculate_distance(transfer.fr, transfer.to)
     distance = -1
     if "result" in dist_res.keys():
         distance = dist_res["result"]
@@ -16,8 +22,8 @@ async def get_price(transfer):
         return -1
     price_dist = distance * specification["km_price"]
     
-    weight_k = randint(1, 5)
-    volume_k = randint(1, 5)
+    weight_k = randint(MIN_W, MAX_W)
+    volume_k = randint(MIN_V, MAX_V)
 
     price_cargo = transfer.weight * weight_k + transfer.volume * volume_k
 

@@ -1,0 +1,16 @@
+FROM python:3.12-slim
+WORKDIR /app
+
+COPY data/ data
+COPY src/ src
+
+COPY .env .
+COPY requirements.txt .
+COPY main.py .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+ENV KM_PRICE=19
+ENV CONTAINER_ID=3
+
+CMD ["python", "main.py", "3", "19"]

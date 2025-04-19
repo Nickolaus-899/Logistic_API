@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from data.spec import specification
 
 import pytz
@@ -17,7 +17,13 @@ def get_current_time(time_form=TIMEFORMAT):
         return None
     
 def convert_date(timestamp):
-    return datetime.fromtimestamp(timestamp, TIMEZONE).strftime(TIMEFORMAT)
+    return datetime.fromtimestamp(timestamp, pytz.timezone(TIMEZONE))
+
+def increase_date(dt, days):
+    return dt + timedelta(days=days)
+
+def reconvert_date(dt):
+    return datetime.timestamp(dt)
     
 
 def is_delivery_day(date)->bool:

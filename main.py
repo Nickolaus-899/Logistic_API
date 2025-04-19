@@ -1,15 +1,15 @@
 from fastapi import FastAPI, Request
-from src.distance import calculate_distance
-from data.spec import specification, BASE_URL
+from data.spec import specification
 from src.entities import Transfer
-from src.timetable import is_delivery_day
 from random import randint
 
 import uvicorn
-import asyncio
+import sys
 
 
 app = FastAPI()
+
+PORT = 3000
 
 MAX_BATCH = 10
 MIN_BATCH = 3
@@ -35,4 +35,11 @@ async def search_transfers(req: Request):
     
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=3000)
+    if len(sys.argv) == 3:
+        specification["id"] = int(sys.argv[1])
+        specification["km_price"] = int(sys.argv[2])
+    else:
+        print(f"Invalid number of args {len(sys.argv)}")
+        exit(1) 
+
+    uvicorn.run(app, host="0.0.0.0", port=PORT)

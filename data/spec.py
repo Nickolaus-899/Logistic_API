@@ -1,6 +1,4 @@
 specification = {
     "id": 0,
-    "km_price": 1570
+    "km_price": 1
 }
-
-BASE_URL = "http://localhost:3000"
