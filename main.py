@@ -32,6 +32,9 @@ async def search_transfers(req: Request):
         print(f"Error: {e}")
         return None
 
+@app.post("/ack")
+async def ack_choice(req: Request):
+    return {"status": "Approved"}
     
 
 if __name__ == "__main__":
